@@ -1,0 +1,61 @@
+﻿@*@model IEnumerable<StudentManagementSystem.Models.Teacher>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeacherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.ActionLink("Feedback", "Feedback", new { id=item.TeacherId })
+            </td>
+        </tr>
+    }
+
+    </table>
+*@
+
+
+
+@model IEnumerable<StudentManagementSystem.Models.Teacher>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.TeacherName)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Age) years old</p>
+                    <a href="@Url.Action("Feedback", new { id = item.TeacherId })" class="btn btn-primary">Feedback</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

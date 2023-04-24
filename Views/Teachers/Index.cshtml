@@ -1,0 +1,132 @@
+﻿@model IPagedList<StudentManagementSystem.Models.Student>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+    @using PagedList;
+    @using PagedList.Mvc;
+    <h2>Index</h2>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <p>
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+        <div class="col-sm-6">
+            @using (Html.BeginForm("Index", "Teachers", FormMethod.Get))
+            {
+                <div class="input-group mb-3">
+                    <input type="search" name="search" class="form-control" placeholder="Enter Student name" />
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <br />
+    @Html.ActionLink("Deactivated Student", "DisabledPosts", "Teachers", new { area = "" }, new { @class = "btn btn-primary" })
+
+    <br />
+    <br />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Course)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.StudentId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Deactivate", "Disable", new { id = item.StudentId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager(Model, i => Url.Action("Index", "Teacher", new { i, search = Request.QueryString["search"] }))
+
+
+
+@*@model IPagedList<StudentManagementSystem.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+@using PagedList;
+@using PagedList.Mvc;
+<h2>Index</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <p>
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+        <div class="col-sm-6">
+            @using (Html.BeginForm("Index", "Teachers", FormMethod.Get))
+            {
+                <div class="input-group mb-3">
+                    <input type="search" name="search" class="form-control" placeholder="Enter Student name" />
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Student List</h5>
+                    @foreach (var item in Model)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">@item.Name</h6>
+                                <p class="card-text">Age: @item.Age</p>
+                                <p class="card-text">Course: @item.Course</p>
+                                <div class="btn-group">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.StudentId }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentId }, new { @class = "btn btn-danger" })
+                                    @Html.ActionLink("Deactivate", "Disable", new { id = item.StudentId }, new { @class = "btn btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @Html.PagedListPager(Model, i => Url.Action("Index", "Teacher", new { i, search = Request.QueryString["search"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.ActionLink("Deactivated Student", "DisabledPosts", "Teachers", new { area = "" }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>*@
